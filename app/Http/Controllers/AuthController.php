@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Customs\Services\EmailVerificationService;
 use App\Http\Requests\Auth\VerifyEmailRequest;
+use App\Http\Requests\Auth\ResendEmailRequest;
 use Illuminate\Http\Request;
 use Validator;
 
@@ -81,6 +82,7 @@ class AuthController extends Controller
 
     public function verifyUserEmail(Request  $request){
         $this->service->verifyEmail($request->email,$request->token);
+        return response()->json([ 'status'=>'success','message'=>'verfication link send succsesfully']);
 
     }
     public function testid(){
@@ -90,6 +92,12 @@ class AuthController extends Controller
             'userid'=>Auth::id(),
            
         ]);
+
+    }
+
+
+    public function ResendVerficationLink(Request $request){
+        $this->service->ResendLink($request->email);
 
     }
 

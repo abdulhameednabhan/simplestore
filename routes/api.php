@@ -27,6 +27,7 @@ Route::group([
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/verify_user_email', [AuthController::class, 'verifyUserEmail']);
+    Route::post('/resend_token', [AuthController::class, 'ResendVerficationLink']);
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/refresh', [AuthController::class, 'refresh']);
     // Route::get('/user-profile', [AuthController::class, 'userProfile']);    
