@@ -20,7 +20,7 @@ class AuthController extends Controller
      * @return void
      */
     public function __construct(private EmailVerificationService $service) {
-        // $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register']]);
     }
     /**
      * Get a JWT via given credentials.

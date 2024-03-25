@@ -31,7 +31,7 @@ Route::group([
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/refresh', [AuthController::class, 'refresh']);
     // Route::get('/user-profile', [AuthController::class, 'userProfile']);    
-    // Route::get('/testid', [AuthController::class, 'testid']);  
+    Route::get('/testid', [AuthController::class, 'testid']);  
 });
 
 
@@ -39,7 +39,7 @@ Route::prefix('brands')->group(function () {
     Route::get('/', [BrandController::class, 'index']);
     Route::post('/store', [BrandController::class, 'store']);
     Route::get('/show/{id}', [BrandController::class, 'show']);
-    Route::put('/update/{id}', [BrandController::class, 'update']);
+    Route::post('/update/{id}', [BrandController::class, 'update']);
     Route::delete('/delete/{id}', [BrandController::class, 'destroy']);
 });
 

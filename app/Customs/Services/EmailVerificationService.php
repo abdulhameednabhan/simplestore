@@ -20,7 +20,7 @@ public function verifyToken(string $email, string $token)
         if ($token->expired_at >= now()) {
             return $token;
         } else {
-            $token->delete();
+            // $token->delete();
             return response()->json([
                 'status' => 'failed',
                 'message' => 'Token expired'
@@ -60,7 +60,7 @@ public function verifyEmail(string $email, string $token)
 
     if ($user->markEmailAsVerified()) {
         if ($verifiedToken) {
-            $verifiedToken->delete();
+            // $verifiedToken->delete();
         }
         return response()->json([
             'status' => 'success',
@@ -79,6 +79,10 @@ public function verifyEmail(string $email, string $token)
         $user=User::where("email",$email)->first();
         if($user){
            $this->sendVerificationLink($user);
+           return response()->json([
+            'status' => 'success',
+            'message' => 'resend link.'
+        ]);
 
         }
         else{
