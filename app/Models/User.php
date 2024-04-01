@@ -6,8 +6,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 
-class User extends Authenticatable implements JWTSubject
+class User extends Authenticatable implements JWTSubject,FilamentUser
 {
     use HasFactory, Notifiable;
     use SoftDeletes;
@@ -16,6 +18,15 @@ class User extends Authenticatable implements JWTSubject
      *
      * @var array
      */
+     const ROLE_ADMIN = 'ADMIN';
+     const ROLE_USER = 'USER';
+     const ROLE_DEFAULT = self::ROLE_USER;
+ 
+         const ROLES = [
+         self::ROLE_ADMIN => 'Admin',
+       
+         self::ROLE_USER => 'User',
+     ];
     protected $fillable = ['name', 'email', 'password'];
     // protected $fillable = [
     //     'name',
@@ -56,4 +67,20 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims() {
         return [];
     }    
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return $this->isAdmin()||$this->isUser();
+        
+    }
+
+
+
+    public function isAdmin(){
+        return $this->role === self::ROLE_ADMIN;
+    }
+
+    public function isUser(){
+        return $this->role === self::ROLE_USER;
+    }
 }
