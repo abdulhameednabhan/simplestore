@@ -8,12 +8,12 @@ use App\models\User;
 
 class EmailVerificationService{
  
-public function sendVerificationLink(object $user): void{
+public static function sendVerificationLink(object $user): void{
 Notification::send($user, new EmailVerificationNotification($this->generateVerificationlink($user->email)));
 }
 
 
-public function verifyToken(string $email, string $token)
+public static function verifyToken(string $email, string $token)
 {
     $token = EmailVerificationToken::where('email', $email)->where('token', $token)->first();
     if ($token) {
@@ -34,7 +34,7 @@ public function verifyToken(string $email, string $token)
     }
 }
 
-public function checkIfEmailIsVerified($user)
+public  static function checkIfEmailIsVerified($user)
 {
     if ($user->email_verified_at) {
         return response()->json([
@@ -55,8 +55,8 @@ public function verifyEmail(string $email, string $token)
         ]);
     }
 
-    $this->checkIfEmailIsVerified( $user);
-    $verifiedToken = $this->verifyToken($email, $token);
+    self::checkIfEmailIsVerified( $user);
+    $verifiedToken = self::verifyToken($email, $token);
 
     if ($user->markEmailAsVerified()) {
         if ($verifiedToken) {
@@ -78,7 +78,7 @@ public function verifyEmail(string $email, string $token)
     public function ResendLink($email){
         $user=User::where("email",$email)->first();
         if($user){
-           $this->sendVerificationLink($user);
+           self::sendVerificationLink($user);
            return response()->json([
             'status' => 'success',
             'message' => 'resend link.'

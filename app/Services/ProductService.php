@@ -5,7 +5,7 @@ use App\Models\Product;
 
 class ProductService
 {
-    public function storeProduct(array $validatedData, $image)
+    public static function storeProduct(array $validatedData, $image)
     {
         $product = new Product();
         $product->name = $validatedData['name'];
@@ -23,7 +23,7 @@ class ProductService
         $product->save();
     }
 
-    public function updateProduct($id, array $validatedData, $image)
+    public  static function updateProduct($id, array $validatedData, $image)
     {
         $product = Product::find($id);
         if ($product) {
@@ -49,7 +49,7 @@ class ProductService
         }
     }
 
-    public function deleteProduct($id)
+    public static function deleteProduct($id)
     {
         $product = Product::find($id);
         if ($product) {

@@ -7,7 +7,7 @@ use Illuminate\Http\UploadedFile;
 
 class CategoryService
 {
-    public function storeCategoryWithImage($name, UploadedFile $image)
+    public static function storeCategoryWithImage($name, UploadedFile $image)
     {
         $name = $image->getClientOriginalName();                    
         $destinationPath = public_path('/images/category');
@@ -22,7 +22,7 @@ class CategoryService
         return $category;
     }
 
-    public function updateCategoryWithImage(Category $category, $name, UploadedFile $image = null)
+    public static function updateCategoryWithImage(Category $category, $name, UploadedFile $image = null)
     {
         $category->name = $name;
 
@@ -45,7 +45,7 @@ class CategoryService
         return $category;
     }
 
-    public function deleteCategoryWithImage(Category $category)
+    public static function deleteCategoryWithImage(Category $category)
     {
         if ($category->image) {
             $imagePath = public_path('/images/category/') . $category->image;

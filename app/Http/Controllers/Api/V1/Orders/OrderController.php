@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Customs\Services\OrderService;
+use App\Services\OrderService;
 use App\Http\Requests\OrderRequest;
 use App\Models\Location;
 use App\Models\Order;
@@ -9,22 +9,23 @@ use App\Models\OrderItems;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
 
 
 
 
 class OrderController extends Controller
 {
-    private $orderService;
+    
 
-    public function __construct(OrderService $orderService)
+    public function __construct( )
     {
-        $this->orderService = $orderService;
+       
     }
     //
     public function index()
     {
-        $orders = $this->orderService->getAllOrders();
+        $orders = OrderService::getAllOrders();
 
         if (is_string($orders)) {
             return response()->json($orders, 404);
@@ -45,12 +46,12 @@ public function show($id)
 }
 public function store(OrderRequest $request)
 {
-    return response()->json($this->orderService->storeOrder($request), 201);
+    return response()->json(OrderService::storeOrder($request), 201);
 }
 
 public function get_order_items($id)
 {
-    $orderItems = $this->orderService->getOrderItems($id);
+    $orderItems = OrderService::getOrderItems($id);
 
     if (is_string($orderItems)) {
         return response()->json($orderItems, 404);
@@ -63,7 +64,7 @@ public function get_order_items($id)
 
 public function get_user_orders($id)
 {
-    $orders = $this->orderService->getUserOrders($id);
+    $orders = OrderService::getUserOrders($id);
 
     if (is_string($orders)) {
         return response()->json($orders, 404);
@@ -75,7 +76,7 @@ public function get_user_orders($id)
 
 public function change_order_status($id, Request $request)
 {
-    return response()->json($this->orderService->updateOrderStatus($id, $request->status), 200);
+    return response()->json(OrderService::updateOrderStatus($id, $request->status), 200);
 }
 
 }

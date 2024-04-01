@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 class OrderService
 {
 
-    public function getAllOrders()
+    public static function getAllOrders()
     {
         $orders = Order::with('user')->paginate(20);
 
@@ -30,7 +30,7 @@ class OrderService
     }
 
 
-    public function storeOrder($request)
+    public static function storeOrder($request)
     {
         $location = Location::where('user_id', Auth::id())->first();
 
@@ -51,7 +51,7 @@ class OrderService
         return 'Order has been added';
     }
 
-    public function getUserOrders($id)
+    public static function getUserOrders($id)
     {
         $orders = Order::with('items')->where('user_id', $id)->get();
 
@@ -66,7 +66,7 @@ class OrderService
         return $orders;
     }
 
-    public function updateOrderStatus($id, $status)
+    public static function updateOrderStatus($id, $status)
     {
         $order = Order::find($id);
 
@@ -78,7 +78,7 @@ class OrderService
         }
     }
 
-    private function storeOrderItem($order, $orderItemData)
+    private  function storeOrderItem($order, $orderItemData)
     {
         $orderItem = new OrderItems();
         $orderItem->order_id = $order->id;
@@ -107,7 +107,7 @@ class OrderService
 
 
 
-    public function getOrderItems($id)
+    public static function getOrderItems($id)
     {
         $orderItems = OrderItems::where('order_id', $id)->get();
 

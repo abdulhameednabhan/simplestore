@@ -3,16 +3,16 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Http\Requests\CategoryRequest\CategoryUpdateRequest;
 use App\Http\Requests\CategoryRequest\CategoryStoreRequest;
-use App\Customs\Services\CategoryService;
+use App\Services\CategoryService;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class CategoryController extends Controller
 {
-    protected $categoryService;
 
-    public function __construct(CategoryService $categoryService)
+    public function __construct( )
     {
-        $this->categoryService = $categoryService;
+      
     }
 
     public function index()
@@ -32,7 +32,7 @@ class CategoryController extends Controller
     public function store(CategoryStoreRequest $request)
     {
         $validatedData = $request->validated();
-        $category = $this->categoryService->storeCategoryWithImage($validatedData['name'], $request->file('image'));
+        $category = CategoryService::storeCategoryWithImage($validatedData['name'], $request->file('image'));
 
         return response()->json($category, 201);
     }
@@ -41,7 +41,7 @@ class CategoryController extends Controller
     {
         $validatedData = $request->validated();
         $category = Category::findOrFail($id);
-        $category = $this->categoryService->updateCategoryWithImage($category, $validatedData['name'], $request->file('image'));
+        $category = CategoryService::updateCategoryWithImage($category, $validatedData['name'], $request->file('image'));
 
         return response()->json($category);
     }
@@ -49,7 +49,7 @@ class CategoryController extends Controller
     public function destroy(Request $request, $id)
     {
         $category = Category::findOrFail($id);
-        $this->categoryService->deleteCategoryWithImage($category);
+        CategoryService::deleteCategoryWithImage($category);
 
         return response()->json(['success' => 'deleted'], 204);
     }

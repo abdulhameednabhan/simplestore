@@ -4,16 +4,17 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Http\Requests\ProductRequest\ProductStoreRequest;
 use App\Http\Requests\ProductRequest\ProductUpdateRequest;
-use App\Customs\Services\ProductService; 
+use App\Services\ProductService; 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class ProductController extends Controller
 {
-    protected $productService;
+   
 
-    public function __construct(ProductService $productService)
+    public function __construct( )
     {
-        $this->productService = $productService;
+       
     }
 
     public function index()
@@ -38,19 +39,19 @@ class ProductController extends Controller
 
     public function store(ProductStoreRequest $request)
     {
-        $this->productService->storeProduct($request->validated(), $request->file('image'));
+        ProductService::storeProduct($request->validated(), $request->file('image'));
         return response()->json('Product added', 201);
     }
 
     public function update(ProductUpdateRequest $request, $id)
     {
-        $this->productService->updateProduct($id, $request->validated(), $request->file('image'));
+        ProductService::updateProduct($id, $request->validated(), $request->file('image'));
         return response()->json('Product updated', 200);
     }
 
     public function destroy($id)
     {
-        $this->productService->deleteProduct($id);
+        ProductService::deleteProduct($id);
         return response()->json('Product deleted', 200);
     }
 }

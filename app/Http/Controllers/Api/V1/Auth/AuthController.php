@@ -4,11 +4,12 @@ use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegistertionRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
-use App\Customs\Services\EmailVerificationService;
+use App\Services\EmailVerificationService;
 use App\Http\Requests\Auth\VerifyEmailRequest;
 use App\Http\Requests\Auth\ResendEmailRequest;
 use Illuminate\Http\Request;
 use Validator;
+use App\Http\Controllers\Controller;
 
 
 class AuthController extends Controller
@@ -19,7 +20,7 @@ class AuthController extends Controller
      *
      * @return void
      */
-    public function __construct(private EmailVerificationService $service) {
+    public function __construct() {
         $this->middleware('auth:api', ['except' => ['login', 'register']]);
     }
     /**
@@ -53,7 +54,7 @@ class AuthController extends Controller
                     ['password' => bcrypt($request->password)]
                 ));
                 if($user){
-                    $this->service->sendVerificationLink($user);
+                    EmailVerificationService::sendVerificationLink($user);
                     $token=auth()->login($user);
                     return $this->responsewithtoken($token,$user);
                 }
@@ -81,7 +82,7 @@ class AuthController extends Controller
     }
 
     public function verifyUserEmail(Request  $request){
-        $this->service->verifyEmail($request->email,$request->token);
+        EmailVerificationService::verifyEmail($request->email,$request->token);
         return response()->json([ 'status'=>'success','message'=>'verfication link send succsesfully']);
 
     }
