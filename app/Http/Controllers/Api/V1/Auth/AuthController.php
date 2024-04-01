@@ -8,8 +8,9 @@ use App\Services\EmailVerificationService;
 use App\Http\Requests\Auth\VerifyEmailRequest;
 use App\Http\Requests\Auth\ResendEmailRequest;
 use Illuminate\Http\Request;
-use Validator;
+
 use App\Http\Controllers\Controller;
+use Validator;
 
 
 class AuthController extends Controller
