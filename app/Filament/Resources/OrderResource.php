@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Filament\Resources;
+use Illuminate\Support\Facades\Auth;
 use Filament\Forms\Components\Select;
 use App\Filament\Resources\OrderResource\Pages;
 use App\Filament\Resources\OrderResource\RelationManagers;
@@ -45,11 +46,11 @@ class OrderResource extends Resource
 
     public static function table(Table $table): Table
     {
+        $user = Auth::user();
+
         return $table
+            ->query(Order::where('user_id', $user->id))
             ->columns([
-                Tables\Columns\TextColumn::make('user.name')
-                    ->numeric()
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('location.area')
                     ->numeric()
                     ->sortable(),
