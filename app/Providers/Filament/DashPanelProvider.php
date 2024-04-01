@@ -18,14 +18,14 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
-class HameedPanelProvider extends PanelProvider
+class DashPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
         return $panel
             ->default()
-            ->id('hameed')
-            ->path('hameed')
+            ->id('dash')
+            ->path('dash')
             ->login()
             ->colors([
                 'primary' => Color::Amber,

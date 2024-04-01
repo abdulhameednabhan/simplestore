@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1\Products;
 
 use App\Models\Product;
 use App\Http\Requests\ProductRequest\ProductStoreRequest;

@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1\Categs;
 use App\Models\Category;
 use App\Http\Requests\CategoryRequest\CategoryUpdateRequest;
 use App\Http\Requests\CategoryRequest\CategoryStoreRequest;

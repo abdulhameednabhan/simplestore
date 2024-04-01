@@ -1,5 +1,5 @@
 <?php
-namespace App\Customs\Services;
+namespace App\Services;
 
 use App\Models\Product;
 use App\Models\Location;
@@ -60,7 +60,7 @@ class OrderService
         }
 
         foreach ($orders as $order) {
-            $this->setProductNames($order);
+            self::setProductNames($order);
         }
 
         return $orders;
@@ -95,7 +95,7 @@ class OrderService
         $product->save();
     }
 
-    private function setProductNames($order)
+    private static function setProductNames($order)
     {
         foreach ($order->items as $orderItem) {
             $product = Product::where('id', $orderItem->product_id)->pluck('name')->first();

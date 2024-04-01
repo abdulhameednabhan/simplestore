@@ -36,6 +36,6 @@ class Order extends Model
         return $this->belongsTo(Location::class, 'location_id');
     }
     public function items(){
-        $this->hasMany(OrderItems::class);
+        return  $this->hasMany(OrderItems::class);
     }
 }

@@ -1,5 +1,5 @@
 <?php
-namespace App\Customs\Services;
+namespace App\Services;
 use Illuminate\Support\Str;
 use App\Notifications\EmailVerificationNotification;
 use App\Models\EmailVerificationToken;
@@ -9,7 +9,7 @@ use App\models\User;
 class EmailVerificationService{
  
 public static function sendVerificationLink(object $user): void{
-Notification::send($user, new EmailVerificationNotification($this->generateVerificationlink($user->email)));
+Notification::send($user, new EmailVerificationNotification(self::generateVerificationlink($user->email)));
 }
 
 
@@ -45,7 +45,7 @@ public  static function checkIfEmailIsVerified($user)
 }
 
 
-public function verifyEmail(string $email, string $token)
+public  static function verifyEmail(string $email, string $token)
 {
     $user = User::where('email', $email)->first();
     if (!$user) {
@@ -75,7 +75,7 @@ public function verifyEmail(string $email, string $token)
 
 
 
-    public function ResendLink($email){
+    public static function ResendLink($email){
         $user=User::where("email",$email)->first();
         if($user){
            self::sendVerificationLink($user);
@@ -109,7 +109,7 @@ public function verifyEmail(string $email, string $token)
 
 
     // generate verfication link
-    public function generateVerificationlink( string $email):string{
+    public  static function generateVerificationlink( string $email):string{
         $checkifexisttoken=EmailVerificationToken::where('email',$email)->first();
         if($checkifexisttoken){
             $checkifexisttoken->delete();

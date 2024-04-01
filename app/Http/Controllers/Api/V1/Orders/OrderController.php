@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1\Orders;
 use App\Services\OrderService;
 use App\Http\Requests\OrderRequest;
 use App\Models\Location;
