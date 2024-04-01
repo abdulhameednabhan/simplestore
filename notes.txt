@@ -1,0 +1,11 @@
+- Place api in files
+- Place controllers in folders: App\Http\Controllers\Api\V1\Orders\OrderController
+- Services in separated folder with static methods App\Services
+- Test your code twice
+- Postman: environment variables
+
+Some code standards:
+https://docs.google.com/document/d/18mRcwihAXWQRv3oW-u7UfRWpbJlUoiBIwSj5EwAiukA/edit?usp=sharing
+
+naming convension and best practices:
+https://github.com/alexeymezenin/laravel-best-practices
