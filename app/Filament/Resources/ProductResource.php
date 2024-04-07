@@ -1,6 +1,10 @@
 <?php
 
 namespace App\Filament\Resources;
+use Filament\Infolists\Components\Section;
+use Filament\Infolists\Components\ImageEntry;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Infolist;
 use Filament\Forms\Components\Select;
 use App\Filament\Resources\ProductResource\Pages;
 use App\Filament\Resources\ProductResource\RelationManagers;
@@ -19,6 +23,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class ProductResource extends Resource
 {
     protected static ?string $model = Product::class;
+    protected static ?string $navigationGroup = 'Product Management';
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -104,6 +109,29 @@ class ProductResource extends Resource
                 ]),
             ]);
     }
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+            ->schema([
+            Section::make('product info')
+            ->schema([
+                TextEntry::make('category.name'),
+                TextEntry::make('brand.name'),
+                TextEntry::make('price'),
+                TextEntry::make('amount'),
+                TextEntry::make('discount'),
+                TextEntry::make('discount'),
+                TextEntry::make(' is_trendy'),
+                TextEntry::make('is_available'),
+              
+                ImageEntry::make('image'),
+                ])->columns(2)
+                
+               
+                // ...
+                
+            ]);
+    }
 
     public static function getRelations(): array
     {
@@ -117,8 +145,8 @@ class ProductResource extends Resource
         return [
             'index' => Pages\ListProducts::route('/'),
             'create' => Pages\CreateProduct::route('/create'),
-            'view' => Pages\ViewProduct::route('/{record}'),
-            'edit' => Pages\EditProduct::route('/{record}/edit'),
+            // 'view' => Pages\ViewProduct::route('/{record}'),
+            // 'edit' => Pages\EditProduct::route('/{record}/edit'),
         ];
     }
 }

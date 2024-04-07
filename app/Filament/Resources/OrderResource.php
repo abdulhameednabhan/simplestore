@@ -1,7 +1,10 @@
 <?php
 
 namespace App\Filament\Resources;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Infolist;
 use Illuminate\Support\Facades\Auth;
+
 use Filament\Forms\Components\Select;
 use App\Filament\Resources\OrderResource\Pages;
 use App\Filament\Resources\OrderResource\RelationManagers;
@@ -19,7 +22,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class OrderResource extends Resource
 {
     protected static ?string $model = Order::class;
-
+    protected static ?string $navigationGroup = 'Order Managment';
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
@@ -84,6 +87,20 @@ class OrderResource extends Resource
                 ]),
             ]);
     }
+
+        // public static function infolist(Infolist $infolist): Infolist
+        // {
+        //     return $infolist
+        //         ->schema([
+        //             TextEntry::make('status'),
+        //             TextEntry::make('location.area'),
+        //             // ...
+                    
+        //         ]);
+        // }
+
+
+ 
 
     public static function getRelations(): array
     {
