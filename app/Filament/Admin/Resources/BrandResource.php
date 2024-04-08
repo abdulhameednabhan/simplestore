@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Admin\Resources;
 
-use App\Filament\Resources\BrandResource\Pages;
-use App\Filament\Resources\BrandResource\RelationManagers;
+use App\Filament\Admin\Resources\BrandResource\Pages;
+use App\Filament\Admin\Resources\BrandResource\RelationManagers;
 use App\Models\Brand;
 use Filament\Forms;
 use Filament\Forms\Form;

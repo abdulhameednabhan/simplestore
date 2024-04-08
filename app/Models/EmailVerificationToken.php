@@ -8,5 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class EmailVerificationToken extends Model
 {
     use HasFactory;
-    protected $fillable = ['email', 'token', 'expired_at'];
+    
+    protected $fillable = ['email', 'token', 'expired_at'];  
 }

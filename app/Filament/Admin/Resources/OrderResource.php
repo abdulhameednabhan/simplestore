@@ -1,13 +1,10 @@
 <?php
 
-namespace App\Filament\Resources;
-use Illuminate\Support\Facades\Auth;
-use Filament\Forms\Components\Select;
-use App\Filament\Resources\OrderResource\Pages;
-use App\Filament\Resources\OrderResource\RelationManagers;
+namespace App\Filament\Admin\Resources;
+
+use App\Filament\Admin\Resources\OrderResource\Pages;
+use App\Filament\Admin\Resources\OrderResource\RelationManagers;
 use App\Models\Order;
-use App\Models\User;
-use App\Models\Location;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -26,14 +23,12 @@ class OrderResource extends Resource
     {
         return $form
             ->schema([
-                Select::make('user_id')
-             ->label('user')
-             ->options(User::all()->pluck('name', 'id'))
-             ->searchable(),
-             Select::make('location_id')
-             ->label('location')
-             ->options(Location::all()->pluck('area', 'id'))
-             ->searchable(),
+                Forms\Components\TextInput::make('user_id')
+                    ->required()
+                    ->numeric(),
+                Forms\Components\TextInput::make('location_id')
+                    ->required()
+                    ->numeric(),
                 Forms\Components\TextInput::make('status')
                     ->required(),
                 Forms\Components\TextInput::make('total_price')
@@ -46,12 +41,12 @@ class OrderResource extends Resource
 
     public static function table(Table $table): Table
     {
-        $user = Auth::user();
-
         return $table
-            ->query(Order::where('user_id', $user->id))
             ->columns([
-                Tables\Columns\TextColumn::make('location.area')
+                Tables\Columns\TextColumn::make('user_id')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('location_id')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('status')
@@ -88,8 +83,9 @@ class OrderResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
             RelationManagers\OrderItemsRelationManager::class,
+            
+            //
         ];
     }
 

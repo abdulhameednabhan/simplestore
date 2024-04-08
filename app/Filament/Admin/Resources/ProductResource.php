@@ -1,13 +1,10 @@
 <?php
 
-namespace App\Filament\Resources;
-use Filament\Forms\Components\Select;
-use App\Filament\Resources\ProductResource\Pages;
-use App\Filament\Resources\ProductResource\RelationManagers;
+namespace App\Filament\Admin\Resources;
+
+use App\Filament\Admin\Resources\ProductResource\Pages;
+use App\Filament\Admin\Resources\ProductResource\RelationManagers;
 use App\Models\Product;
-use App\Models\User;
-use App\Models\Category;
-use App\Models\Brand;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -26,14 +23,12 @@ class ProductResource extends Resource
     {
         return $form
             ->schema([
-            Select::make('category_id')
-             ->label('category')
-             ->options(Category::all()->pluck('name', 'id'))
-             ->searchable(),
-             Select::make('brand_id')
-             ->label('brand')
-             ->options(Brand::all()->pluck('name', 'id'))
-             ->searchable(),
+                Forms\Components\TextInput::make('category_id')
+                    ->required()
+                    ->numeric(),
+                Forms\Components\TextInput::make('brand_id')
+                    ->required()
+                    ->numeric(),
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
@@ -60,10 +55,10 @@ class ProductResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('category.name')
+                Tables\Columns\TextColumn::make('category_id')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('brand.name')
+                Tables\Columns\TextColumn::make('brand_id')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('name')
