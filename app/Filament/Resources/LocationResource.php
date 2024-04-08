@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Filament\Resources;
-
+use Illuminate\Support\Facades\Auth;
+use Filament\Forms\Components\Select;
 use App\Filament\Resources\LocationResource\Pages;
 use App\Filament\Resources\LocationResource\RelationManagers;
 use App\Models\Location;
+use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -20,12 +22,10 @@ class LocationResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
-    {
+    {  
         return $form
             ->schema([
-                Forms\Components\TextInput::make('user_id')
-                    ->required()
-                    ->numeric(),
+               
                 Forms\Components\TextInput::make('street')
                     ->required()
                     ->maxLength(255),
@@ -40,7 +40,9 @@ class LocationResource extends Resource
 
     public static function table(Table $table): Table
     {
+        $user = Auth::user();
         return $table
+        ->query(Location::where('user_id', $user->id))
             ->columns([
                 Tables\Columns\TextColumn::make('user_id')
                     ->numeric()

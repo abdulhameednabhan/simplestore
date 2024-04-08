@@ -57,11 +57,11 @@ class AdminPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
+                // VerifyAdmin::class
+            ])
+            ->authMiddleware([
                 VerifyAdmin::class
             ])
-            // ->authMiddleware([
-            //     Authenticate::class,
-            // ])
             ;
     }
 }

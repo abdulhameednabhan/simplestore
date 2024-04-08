@@ -23,17 +23,19 @@ class OrderResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
-    {
+    // {  $user = Auth::user();
+        {
         return $form
             ->schema([
-                Select::make('user_id')
-             ->label('user')
-             ->options(User::all()->pluck('name', 'id'))
-             ->searchable(),
-             Select::make('location_id')
-             ->label('location')
-             ->options(Location::all()->pluck('area', 'id'))
-             ->searchable(),
+                // Select::make('user_id')
+                // ->label('user')
+                // ->options([   $user->name])
+                // ->placeholder($user->name) ,
+
+            Select::make('location_id')
+            ->label('location')
+            ->options(Location::where('user_id', $user->id)->pluck('area', 'id'))
+            ->searchable(),
                 Forms\Components\TextInput::make('status')
                     ->required(),
                 Forms\Components\TextInput::make('total_price')
