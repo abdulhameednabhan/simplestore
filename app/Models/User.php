@@ -70,7 +70,7 @@ class User extends Authenticatable implements JWTSubject,FilamentUser
 
     public function canAccessPanel(Panel $panel): bool
     {
-        return $this->isAdmin()||$this->isUser();
+        return $this->isUser()||$this->isAdmin();
         
     }
 

@@ -19,12 +19,13 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class OrderResource extends Resource
 {
     protected static ?string $model = Order::class;
+    protected static ?string $navigationGroup='orders management';
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
-    // {  $user = Auth::user();
-        {
+    { $user = Auth::user();
+        
         return $form
             ->schema([
                 // Select::make('user_id')
@@ -36,8 +37,8 @@ class OrderResource extends Resource
             ->label('location')
             ->options(Location::where('user_id', $user->id)->pluck('area', 'id'))
             ->searchable(),
-                Forms\Components\TextInput::make('status')
-                    ->required(),
+                // Forms\Components\TextInput::make('status')
+                //     ->required(),
                 Forms\Components\TextInput::make('total_price')
                     ->required()
                     ->numeric(),
